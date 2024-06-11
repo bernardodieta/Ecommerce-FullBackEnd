@@ -16823,3 +16823,7 @@ warning: POST en /api/users/login {"email":"bernardodieta@gmail.com","password":
 error: POST en /api/users/login {"email":"bernardodieta@gmail.com","password":"11098666"}- at 11/6/2024 - 12:41:27 a.m.
 warning: GET en /api/users/662c27e92845f4e43b13b3ec {}- at 11/6/2024 - 12:41:33 a.m.
 error: GET en /api/users/662c27e92845f4e43b13b3ec {}- at 11/6/2024 - 12:41:33 a.m.
+warning: POST en /api/users/login {"email":"bernardodieta@gmail.com","password":"11098666"}- at 11/6/2024 - 8:04:54 a.m.
+error: POST en /api/users/login {"email":"bernardodieta@gmail.com","password":"11098666"}- at 11/6/2024 - 8:04:54 a.m.
+warning: GET en /api/users/662c27e92845f4e43b13b3ec {}- at 11/6/2024 - 8:04:56 a.m.
+error: GET en /api/users/662c27e92845f4e43b13b3ec {}- at 11/6/2024 - 8:04:56 a.m.

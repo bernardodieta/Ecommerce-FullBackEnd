@@ -5,7 +5,7 @@ import chai from "chai";
 mongoose.connect("mongodb://localhost:27017/tests?retryWrites=true&w=majority");
 const expect = chai.expect;
 
-describe('first', () => {
+describe('Users Services', () => {
     before(function () {
         this.usersDao = new UserServiceDao()
     });
@@ -32,16 +32,29 @@ describe('first', () => {
     });
 
     it('El usuario debe ser devuelto en formato Array', async function () {
-        const id = '662c27e92845f4e43b13b3ec'
-        const emptyArray = []
-        const result = await this.usersDao.userById(id)
-        expect(result).to.be.deep.equal(emptyArray);
-        expect(Array.isArray(result)).to.be.ok;
-        expect(Array.isArray(result)).to.be.equal(true);
-        expect(result.length).to.be.deep.equal(emptyArray.length);
-    })
+        const testUser = {
+            first_name: "Roberto",
+            last_name: "Carlos",
+            age: 25,
+            email: "carlitos@gmail.com",
+            password: "123123",
+            role: "admin"
+        };
+    
+        const resultsave = await this.usersDao.userSave(testUser);
+    
+        let tempId = resultsave._id;
+    
+        const result = await this.usersDao.userById(tempId);
+        console.log(result);
+    
+        expect(result).to.be.an('array');
+        expect(result.length).to.be.equal(1);
+        expect(result[0]).to.be.an('object');
+        expect(result[0].first_name).to.be.equal(testUser.first_name);
+        expect(result[0].last_name).to.be.equal(testUser.last_name);
+    });
 
-    let tempId;
     it('El usuario debe guardarse correctamente en la base de datos.', async function () {
         const testUser = {
             first_name: "Roberto",
@@ -53,8 +66,8 @@ describe('first', () => {
         };
 
         const result = await this.usersDao.userSave(testUser);
-        tempId = result._id
-       
+        let tempId = result._id
+
         expect(result._id).to.be.ok;
     });
 
@@ -68,7 +81,7 @@ describe('first', () => {
             role: "admin"
         };
         const savedUser = await this.usersDao.userSave(testUser);
-        tempId = savedUser._id;
+        let tempId = savedUser._id;
 
         const testUpdateUser = {
             first_name: 'Juan'

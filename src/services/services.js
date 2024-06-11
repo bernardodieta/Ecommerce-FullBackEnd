@@ -5,12 +5,14 @@ import AddressServicesDao from "./dao/mongo/address.services.js";
 import OrderServicesDao from "./dao/mongo/order.services.js";
 import QuestionProductDao from "./dao/mongo/questions.services.js";
 
-import QuestionRepository from "./Repository/questions.repository.js";
+
 import UsersRepository from "./Repository/users.repository.js";
-import ProductRepository from "./Repository/products.repository.js";
 import CartRepository from "./Repository/carts.repository.js";
+import ProductRepository from "./Repository/products.repository.js";
+import QuestionRepository from "./Repository/questions.repository.js";
 import OrdersRepository from "./Repository/orders.repository.js";
 import AdressRepository from './Repository/addres.repository.js'
+
 
 const userDao = new UserServiceDao()
 const productDao = new ProductServicesDao()

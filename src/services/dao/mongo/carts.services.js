@@ -1,17 +1,18 @@
 import cartModel from './models/carts.models.js';
 import { ClientError, DatabaseError, NotFoundError } from '../../../utils/errors.js'
-import { productService } from '../../services.js';
-
+//import { productService } from '../../services.js';
+import ProductServicesDao from './products.services.js';
 
 export default class CartServicesDao {
     constructor() {
     }
+    productService = new ProductServicesDao()
 
     addProductToCart = async (userIdObject, productDetails, logger) => {
         const userId = userIdObject.user;
         const productId = productDetails.items.product;
         const quantity = productDetails.items.quantity;
-        const productoExist = await productService.getProductById(productId)
+        const productoExist = await this.productService.getProductById(productId)
         if (!productoExist) {
             logger.warning(`Ocurrio un error al intentar agregar el producto al carrito.' - at ${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`)
             throw new ClientError('El producto que quiere agrear al carrito no existe.')
@@ -37,7 +38,7 @@ export default class CartServicesDao {
     removeProduct = async (_id, productId, logger) => {
         const initialDoc = await cartModel.findOne({ user: _id });
         const hasProduct = initialDoc && initialDoc.items.some(item => item.product.toString() === productId.toString());
-        console.log(hasProduct);
+        
         if (hasProduct === false) {
             logger.warning(`El producto que quiere quitar del carrito no existe.' - at ${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`)
             throw new NotFoundError('El producto que quiere quitar del carrito no existe.')
@@ -60,7 +61,7 @@ export default class CartServicesDao {
             logger.warning(`No se encuentra un carrito asignado a este usuario.' - at ${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`)
             throw new NotFoundError('No se encuentra un carrito asignado a este usuario.')
         }
-        const productoExist = await productService.getProductById(productId)
+        const productoExist = await this.productService.getProductById(productId)
         if (!productoExist) throw new ClientError('El producto no existe')
         const itemIndex = cart.items.findIndex(item => item.product.toString() === productId);
         if (itemIndex > -1) {
@@ -80,6 +81,8 @@ export default class CartServicesDao {
         }
 
     }
+
+
     createEmptyCart = async (userId, logger) => {
         const newCart = await cartModel.create({
             user: userId,
@@ -94,17 +97,19 @@ export default class CartServicesDao {
     }
 
     getCartByUserId = async (userId, logger) => {
-        // try {
-            console.log("Usuario que me llego de:", userId);
-            let cart = await cartModel.findOne({ user: userId }).populate('items.product');
-            if (!cart) {
-                logger.warning(`No se encuentra un carrito asignado a este usuario.' - at ${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`)
-                throw new NotFoundError('No se encuentra un carrito asignado a este usuario.')
+        try {
+            const cart = await cartModel.findOne({ user: userId }).populate('items.product');
+            if (!cart) {                
+                // logger.warning(`No se encontró un carrito para el usuario con ID: ${userId}`);
+                throw new Error('Carrito no encontrado');
             }
+            //logger.info(`Carrito encontrado: ${JSON.stringify(cart)}`);
             return cart;
-        // } catch (error) {
-        //     next(error)
-        // }
+        } catch (error) {
+            console.log(error)
+            //logger.error(`Error al obtener el carrito para el usuario con ID: ${userId} - ${error.message}`);
+            throw error;
+        }
     }
 
 }
