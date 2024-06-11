@@ -16817,3 +16817,9 @@ warning: GET en /apidocs/favicon-32x32.png {}- at 5/6/2024 - 10:56:44 p.m.
 error: GET en /apidocs/favicon-32x32.png {}- at 5/6/2024 - 10:56:44 p.m.
 warning: GET en /api/products/?limit=15&sort=desc {}- at 5/6/2024 - 10:56:56 p.m.
 error: GET en /api/products/?limit=15&sort=desc {}- at 5/6/2024 - 10:56:56 p.m.
+warning: POST en /api/users/login {"email":"bernardodieta@gmail.com","password":"123123"}- at 11/6/2024 - 12:41:16 a.m.
+error: POST en /api/users/login {"email":"bernardodieta@gmail.com","password":"123123"}- at 11/6/2024 - 12:41:16 a.m.
+warning: POST en /api/users/login {"email":"bernardodieta@gmail.com","password":"11098666"}- at 11/6/2024 - 12:41:27 a.m.
+error: POST en /api/users/login {"email":"bernardodieta@gmail.com","password":"11098666"}- at 11/6/2024 - 12:41:27 a.m.
+warning: GET en /api/users/662c27e92845f4e43b13b3ec {}- at 11/6/2024 - 12:41:33 a.m.
+error: GET en /api/users/662c27e92845f4e43b13b3ec {}- at 11/6/2024 - 12:41:33 a.m.

@@ -1,6 +1,7 @@
 import userModel from "./models/users.model.js"
 import { ConflictError, DatabaseError, NotFoundError } from "../../../utils/errors.js";
 
+
 export default class UserServiceDao {
     constructor() {
     }
@@ -16,6 +17,10 @@ export default class UserServiceDao {
 
     userById = async (_id, logger) => {
         const result = await userModel.findById(_id);
+        if (result === null) {
+            let empty = []
+            return empty;
+        }        
         if (!result) {
             logger.warning(`No se encontro un usuario con ese id.- at ${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`);
             throw new NotFoundError('No se encontro un usuario con ese id');
@@ -26,8 +31,9 @@ export default class UserServiceDao {
     updateInfo = async (userId, userUpdate, logger) => {
         const options = { new: true };
         const result = await userModel.findByIdAndUpdate(userId, userUpdate, options);
+        console.log('asd',result);
         if (!result) {
-            logger.error(`Error al actualizar la información del usuario' - at ${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`)
+            //logger.error(`Error al actualizar la información del usuario' - at ${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`)
             throw new DatabaseError('Error al actualizar la información del usuario');
         }
         return result;

@@ -37,6 +37,8 @@
     "winston": "^3.13.0"
   },
   "devDependencies": {
-    "artillery": "^2.0.0-32"
+    "artillery": "^2.0.0-32",
+    "chai": "^4.3.7",
+    "mocha": "^10.4.0"
   }
 }
