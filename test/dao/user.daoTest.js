@@ -41,7 +41,7 @@ describe('first', () => {
         expect(result.length).to.be.deep.equal(emptyArray.length);
     })
 
-    let tempId = mongoose.isValidObjectId()
+    let tempId;
     it('El usuario debe guardarse correctamente en la base de datos.', async function () {
         const testUser = {
             first_name: "Roberto",
@@ -54,18 +54,31 @@ describe('first', () => {
 
         const result = await this.usersDao.userSave(testUser);
         tempId = result._id
-        console.log(tempId);
+       
         expect(result._id).to.be.ok;
     });
 
-    // it('El Usuario debe poder actualizar sus datos en la base de datos', async function () {
-    //     const testUpdateUser = {
-    //         first_name: 'Juan'
-    //     }
-    //     console.log('2', tempId);
-    //     const result = await this.usersDao.updateInfo(tempId,testUpdateUser)
-    //     console.log(result);
-    // })
+    it('El Usuario debe poder actualizar sus datos en la base de datos', async function () {
+        const testUser = {
+            first_name: "Roberto",
+            last_name: "Carlos",
+            age: 25,
+            email: "carlitos@gmail.com",
+            password: "123123",
+            role: "admin"
+        };
+        const savedUser = await this.usersDao.userSave(testUser);
+        tempId = savedUser._id;
+
+        const testUpdateUser = {
+            first_name: 'Juan'
+        };
+
+        const updatedUser = await this.usersDao.updateInfo(tempId, testUpdateUser);
+
+        expect(updatedUser).to.be.not.null;
+        expect(updatedUser.first_name).to.be.equal('Juan');
+    })
 
     afterEach(async function () {
         await mongoose.connection.collection('users').drop().catch(err => {

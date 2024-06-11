@@ -31,7 +31,7 @@ export default class UserServiceDao {
     updateInfo = async (userId, userUpdate, logger) => {
         const options = { new: true };
         const result = await userModel.findByIdAndUpdate(userId, userUpdate, options);
-        console.log('asd',result);
+       
         if (!result) {
             //logger.error(`Error al actualizar la información del usuario' - at ${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`)
             throw new DatabaseError('Error al actualizar la información del usuario');
