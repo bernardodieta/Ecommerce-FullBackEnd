@@ -49,8 +49,11 @@ const profileById = async (req, res, next) => {
 const CuserById = async (req, res, next) => {
     try {
         const { _id } = req.user;
+        console.log(_id);
         const result = await userService.userById(_id);
+        console.log('pre dto', result);
         const userDto = new UserResponseDto(result)
+        console.log('dto', userDto);
         response(res, 200, userDto);
     } catch (error) {
         next(error);

@@ -8,17 +8,23 @@ export default class UserResponseDto {
         this.role = user.role;
         this.questions = user.questions;
         this.registrationDate = user.fecha_reg;
-        this.favProducts = user.favProducts.map(product => ({
-            productId: product.productId,
-            id: product._id
-        }));
+        if (user.favProducts) {
+            this.favProducts = user.favProducts.map(product => ({
+                productId: product.productId,
+                id: product._id
+            }));
+        }
+
         this.cart = user.cart;
-        this.purchasedProducts = user.purchasedProducts.map(purchasedProduct => ({
-            product: {
-                productId: purchasedProduct.product.productId,
-                status: purchasedProduct.product.status
-            },
-            id: purchasedProduct._id
-        }));
+        if (user.purchasedProducts) {
+            this.purchasedProducts = user.purchasedProducts.map(purchasedProduct => ({
+                product: {
+                    productId: purchasedProduct.product.productId,
+                    status: purchasedProduct.product.status
+                },
+                id: purchasedProduct._id
+            }));
+        }
+
     }
 }
