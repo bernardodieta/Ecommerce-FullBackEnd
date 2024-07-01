@@ -30,6 +30,10 @@ const userSchema = new mongoose.Schema({
             ref: 'address',
         }
     },
+    documents: [{
+        document_name: String,
+        ruta: String
+    }],
     favProducts: [
         {
             productId: {
@@ -54,7 +58,7 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'questionProducts'
     },
-
+    last_connection: String,
 
     fecha_reg: String,
 });
