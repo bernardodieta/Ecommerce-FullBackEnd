@@ -22,6 +22,7 @@ export default class UserServiceDao {
 
     userById = async (_id, logger) => {
         const result = await userModel.findById(_id).lean();
+        console.log('result',result);
         if (result === null) {
             let empty = []
             return empty;
@@ -30,7 +31,7 @@ export default class UserServiceDao {
             logger.warning(`No se encontro un usuario con ese id.- at ${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`);
             throw new NotFoundError('No se encontro un usuario con ese id');
         }
-        return result ? [result] : [];
+        return result;
     };
 
     updateInfo = async (userId, userUpdate, logger) => {

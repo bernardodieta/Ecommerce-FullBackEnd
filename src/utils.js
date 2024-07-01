@@ -1,5 +1,6 @@
 import { fileURLToPath } from "url";
 import { dirname } from "path";
+import path from 'path';
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import passport from "passport";
@@ -63,22 +64,35 @@ export const authorization = (role) => {
 };
 
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'public/uploads/')
+  destination: (req, file, cb) => {
+    let uploadPath = 'public/uploads/';
+    console.log('req.body.type:', req.body.type);
+
+    if (file.mimetype.startsWith('image/')) {
+      if (req.body.type === 'user') {
+        uploadPath += 'users/';
+      } else if (req.body.type === 'product') {
+        uploadPath += 'products/';
+      }
+    } else if (file.mimetype === 'application/pdf') {
+      uploadPath += 'documents/';
+    }
+
+    cb(null, uploadPath);
   },
-  filename: function (req, file, cb) {
+  filename: (req, file, cb) => {
     console.log('Recibiendo archivo:', file.originalname);
-    cb(null, Date.now() + '-' + file.originalname)
+    cb(null, `${Date.now()}-${file.originalname}`);
   }
 });
 
 export const upload = multer({
-  storage: storage,
-  fileFilter: function (req, file, cb) {
-    if (file.mimetype.startsWith('image/')) {
+  storage,
+  fileFilter: (req, file, cb) => {
+    if (file.mimetype.startsWith('image/') || file.mimetype === 'application/pdf') {
       cb(null, true);
     } else {
-      cb(new Error('No es un archivo de imagen'), false);
+      cb(new Error('Tipo de archivo no permitido'), false);
     }
   }
 });
