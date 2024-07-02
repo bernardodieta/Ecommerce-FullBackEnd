@@ -9,13 +9,11 @@ export class UsersExtRouter extends CustomRouter {
     init() {
         this.get('/auth/verify', ['PUBLIC'], verifyAuth);
 
-        this.post('/logout', ['PUBLIC'], logOut);
-
-        // this.get('/fakeruser', ['PUBLIC'], fakeusers)
+        this.post('/logout', ['PUBLIC'], logOut);    
 
         this.post('/login', ['PUBLIC'], userLoginController);
 
-        this.put('/premium/:id', ['USER', 'ADMIN'], updatePremiumUser)
+        this.put('/premium', ['USER', 'ADMIN'], updatePremiumUser)
 
         this.post('/documents', ['USER', 'ADMIN'], upload.array('files', 4), userDocumentUpload);
 
