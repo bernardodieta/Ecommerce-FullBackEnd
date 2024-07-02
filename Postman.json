@@ -2,7 +2,7 @@
 	"info": {
 		"_postman_id": "f15e6f1f-1af8-4d92-973c-3380c6c8efae",
 		"name": "Entrega Clase 30",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "25729757"
 	},
 	"item": [
@@ -23,7 +23,19 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/api/users/register"
+						"url": {
+							"raw": "http://localhost:8080/api/users/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"register"
+							]
+						}
 					},
 					"response": []
 				},
@@ -32,7 +44,19 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/api/users/662c27e92845f4e43b13b3ec"
+						"url": {
+							"raw": "http://localhost:8080/api/users/662c27e92845f4e43b13b3ec",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"662c27e92845f4e43b13b3ec"
+							]
+						}
 					},
 					"response": []
 				},
@@ -50,7 +74,19 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/api/users/login"
+						"url": {
+							"raw": "http://localhost:8080/api/users/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"login"
+							]
+						}
 					},
 					"response": []
 				},
@@ -76,7 +112,21 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/api/users/profile/edit/663e7bcc7787ad7d43432f04"
+						"url": {
+							"raw": "http://localhost:8080/api/users/profile/edit/663e7bcc7787ad7d43432f04",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"profile",
+								"edit",
+								"663e7bcc7787ad7d43432f04"
+							]
+						}
 					},
 					"response": []
 				},
@@ -94,7 +144,19 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/api/users/request-password-reset"
+						"url": {
+							"raw": "http://localhost:8080/api/users/request-password-reset",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"request-password-reset"
+							]
+						}
 					},
 					"response": []
 				},
@@ -120,7 +182,98 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/api/users/profile/edit/"
+						"url": {
+							"raw": "http://localhost:8080/api/users/profile/edit/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"profile",
+								"edit",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "uploadDocuments",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "files",
+									"type": "file",
+									"src": [
+										"/C:/Users/bdiet/Desktop/PDF/Show Screen UI App Safe in The Box.pdf",
+										"/C:/Users/bdiet/Desktop/PDF/Show Screen UI App Safe in The Box 2.pdf",
+										"/E:/Escritorio 02-07-2023/pdf/Aereo Pablo Agustin Escontrela.pdf",
+										"/E:/Escritorio 02-07-2023/pdf/Aereo Pablo Agustin Escontrela - copia.pdf"
+									]
+								},
+								{
+									"key": "document_names",
+									"value": "Comprobante de direccion",
+									"type": "text"
+								},
+								{
+									"key": "document_names",
+									"value": "DNI",
+									"type": "text"
+								},
+								{
+									"key": "document_names",
+									"value": "Estado de cuenta",
+									"type": "text"
+								},
+								{
+									"key": "document_names",
+									"value": "asd",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/users/documents",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"documents"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "updatePremiumUser",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/users/premium",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"users",
+								"premium"
+							]
+						}
 					},
 					"response": []
 				}
@@ -212,7 +365,19 @@
 								}
 							]
 						},
-						"url": "http://localhost:8080/api/products/register"
+						"url": {
+							"raw": "http://localhost:8080/api/products/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"register"
+							]
+						}
 					},
 					"response": []
 				},
@@ -221,7 +386,19 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/api/products/6622bfaaf2f681557c978c95"
+						"url": {
+							"raw": "http://localhost:8080/api/products/6622bfaaf2f681557c978c95",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"6622bfaaf2f681557c978c95"
+							]
+						}
 					},
 					"response": []
 				},
@@ -295,7 +472,21 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/api/products/favoritos/662c27e92845f4e43b13b3ec/6629e6006ab8a367293436c2"
+						"url": {
+							"raw": "http://localhost:8080/api/products/favoritos/662c27e92845f4e43b13b3ec/6629e6006ab8a367293436c2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"favoritos",
+								"662c27e92845f4e43b13b3ec",
+								"6629e6006ab8a367293436c2"
+							]
+						}
 					},
 					"response": []
 				},
@@ -313,16 +504,20 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/api/products/edit/6629dfec6ab8a3672934369e"
-					},
-					"response": []
-				},
-				{
-					"name": "questions",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"url": "http://localhost:8080/api/products/question/6629e6b66ab8a367293436cb"
+						"url": {
+							"raw": "http://localhost:8080/api/products/edit/6629dfec6ab8a3672934369e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"edit",
+								"6629dfec6ab8a3672934369e"
+							]
+						}
 					},
 					"response": []
 				},
@@ -331,7 +526,27 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": "http://localhost:8080/api/products/664447c48be0cb9067cf13b9"
+						"url": {
+							"raw": "http://localhost:8080/api/products/664447c48be0cb9067cf13b9",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"664447c48be0cb9067cf13b9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "valorar",
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}
@@ -383,7 +598,19 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/api/cart/662c27e92845f4e43b13b3ec"
+						"url": {
+							"raw": "http://localhost:8080/api/cart/662c27e92845f4e43b13b3ec",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"cart",
+								"662c27e92845f4e43b13b3ec"
+							]
+						}
 					},
 					"response": []
 				},
@@ -392,7 +619,21 @@
 					"request": {
 						"method": "DELETE",
 						"header": [],
-						"url": "http://localhost:8080/api/cart/66213dc25b15cdaf1e8aae0e/6622b07676d7173d20a2635a/2"
+						"url": {
+							"raw": "http://localhost:8080/api/cart/66213dc25b15cdaf1e8aae0e/6622b07676d7173d20a2635a/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"cart",
+								"66213dc25b15cdaf1e8aae0e",
+								"6622b07676d7173d20a2635a",
+								"2"
+							]
+						}
 					},
 					"response": []
 				},
@@ -410,7 +651,21 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/api/cart/662c27e92845f4e43b13b3ec/purchase/"
+						"url": {
+							"raw": "http://localhost:8080/api/cart/662c27e92845f4e43b13b3ec/purchase/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"cart",
+								"662c27e92845f4e43b13b3ec",
+								"purchase",
+								""
+							]
+						}
 					},
 					"response": []
 				},
@@ -419,7 +674,21 @@
 					"request": {
 						"method": "PUT",
 						"header": [],
-						"url": "http://localhost:8080/api/cart/remove/662c27e92845f4e43b13b3ec/6629dfec6ab8a3672934369e"
+						"url": {
+							"raw": "http://localhost:8080/api/cart/remove/662c27e92845f4e43b13b3ec/6629dfec6ab8a3672934369e",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"cart",
+								"remove",
+								"662c27e92845f4e43b13b3ec",
+								"6629dfec6ab8a3672934369e"
+							]
+						}
 					},
 					"response": []
 				}
@@ -433,7 +702,18 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/com/email"
+						"url": {
+							"raw": "http://localhost:8080/com/email",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"com",
+								"email"
+							]
+						}
 					},
 					"response": []
 				}
@@ -447,7 +727,19 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/api/orders/662c27e92845f4e43b13b3ec"
+						"url": {
+							"raw": "http://localhost:8080/api/orders/662c27e92845f4e43b13b3ec",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"orders",
+								"662c27e92845f4e43b13b3ec"
+							]
+						}
 					},
 					"response": []
 				},
@@ -456,7 +748,20 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"url": "http://localhost:8080/api/orders/confirm/663195c2f990f0f473eda293"
+						"url": {
+							"raw": "http://localhost:8080/api/orders/confirm/663195c2f990f0f473eda293",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"orders",
+								"confirm",
+								"663195c2f990f0f473eda293"
+							]
+						}
 					},
 					"response": []
 				},
@@ -465,7 +770,20 @@
 					"request": {
 						"method": "POST",
 						"header": [],
-						"url": "http://localhost:8080/api/orders/cancel/663195c2f990f0f473eda293"
+						"url": {
+							"raw": "http://localhost:8080/api/orders/cancel/663195c2f990f0f473eda293",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"orders",
+								"cancel",
+								"663195c2f990f0f473eda293"
+							]
+						}
 					},
 					"response": []
 				}
@@ -488,7 +806,20 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/api/address/save/662c27e92845f4e43b13b3ec"
+						"url": {
+							"raw": "http://localhost:8080/api/address/save/662c27e92845f4e43b13b3ec",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"address",
+								"save",
+								"662c27e92845f4e43b13b3ec"
+							]
+						}
 					},
 					"response": []
 				},
@@ -540,6 +871,65 @@
 								}
 							]
 						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Questions",
+			"item": [
+				{
+					"name": "GetAllQuestions",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "questions",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/products/question/6629e6b66ab8a367293436cb",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"products",
+								"question",
+								"6629e6b66ab8a367293436cb"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetQuestionByProductId",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "getQuestionbyProductIdAndUserId",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "getQuestionById",
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}
