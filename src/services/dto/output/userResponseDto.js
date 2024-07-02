@@ -12,6 +12,7 @@ export default class UserResponseDto {
             document_name: doc.document_name,
             path: doc.path
         }));
+
         if (user.favProducts) {
             this.favProducts = user.favProducts.map(product => ({
                 productId: product.productId,
@@ -29,6 +30,5 @@ export default class UserResponseDto {
                 id: purchasedProduct._id
             }));
         }
-
     }
 }
