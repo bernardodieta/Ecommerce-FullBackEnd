@@ -39,7 +39,16 @@ export default class UserServiceDao {
         const result = await userModel.findByIdAndUpdate(userId, userUpdate, options);
 
         if (!result) {
-            //logger.error(`Error al actualizar la información del usuario' - at ${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`)
+            throw new DatabaseError('Error al actualizar la información del usuario');
+        }
+        return result;
+    };
+
+    updateInfoDocuments = async (userId, userUpdate, logger) => {
+        const options = { new: true };
+        const result = await userModel.findByIdAndUpdate(userId, { $push: { documents: { $each: userUpdate.documents } } }, options);
+    
+        if (!result) {
             throw new DatabaseError('Error al actualizar la información del usuario');
         }
         return result;

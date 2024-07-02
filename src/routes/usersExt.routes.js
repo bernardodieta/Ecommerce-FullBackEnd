@@ -1,6 +1,7 @@
 import CustomRouter from './customs.routes.js';
-import { userLoginController, registerUserController, CuserById, profileById, profileEdit, reqPasswordReset, resetPasswordToken, verifyAuth, logOut } from '../controllers/users.controllers.js'
-import { fakeusers } from '../controllers/fakerUsers.js';
+import { userLoginController, registerUserController, CuserById, profileById,updatePremiumUser, profileEdit, reqPasswordReset, resetPasswordToken, verifyAuth, logOut, userDocumentUpload } from '../controllers/users.controllers.js'
+
+import { upload } from '../utils.js';
 import { validateUserRegisterData } from '../services/middlewares/validateDataUsers.js';
 
 export class UsersExtRouter extends CustomRouter {
@@ -10,9 +11,13 @@ export class UsersExtRouter extends CustomRouter {
 
         this.post('/logout', ['PUBLIC'], logOut);
 
-       // this.get('/fakeruser', ['PUBLIC'], fakeusers)
+        // this.get('/fakeruser', ['PUBLIC'], fakeusers)
 
         this.post('/login', ['PUBLIC'], userLoginController);
+
+        this.put('/premium/:id', ['USER', 'ADMIN'], updatePremiumUser)
+
+        this.post('/documents', ['USER', 'ADMIN'], upload.array('files', 4), userDocumentUpload);
 
         this.post('/register', ['PUBLIC'], validateUserRegisterData, registerUserController)
 

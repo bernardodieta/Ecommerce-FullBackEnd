@@ -105,9 +105,9 @@ export default class ProductServicesDao {
             const saveValoration = await productModel.updateOne(
                 { _id: new mongoose.Types.ObjectId(productId) },
                 { $push: { valorations: dataUpdate } }
-            );       
-         }
-        let newStatus = true;     
+            );
+        }
+        let newStatus = true;
         const updatedStatus = await this.updateProductStatus(_id, productId, newStatus);
         return valorar;
     };

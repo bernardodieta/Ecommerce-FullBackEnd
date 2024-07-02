@@ -102,36 +102,6 @@ const toggleFavorite = async (req, res, next) => {
     }
 };
 
-// const saveProductController = async (req, res, next) => {
-//     try {
-//         let img = [];
-//         const { title, description, stock, price, pcode, category } = req.body;
-//         const exists = await productService.getProductByPcode(pcode, req.logger);
-//         if (exists) {
-//             req.logger.warning(`${req.method} en ${req.url} - Error: Ya existe un producto con ese Product code - at ${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`);
-//             throw new ConflictError('Ya existe un producto con ese Product code');
-//         }
-
-//         if (req.files && req.files.length > 0) {
-//             img = req.files.map(file => ({ path: file.path }));
-//             console.log('img:', img);
-//         }
-//         let owner = ''
-//         if (req.user.role === 'premium') {
-//             owner = req.user.email
-//         } else {
-//             owner = 'admin'
-//         }
-//         const product = new Product(title, description, stock, price, pcode, category, moment().format(), img, owner);
-
-//         const newProduct = await productService.saveProduct(product, req.logger);
-//         return response(res, 201, newProduct);
-//     } catch (error) {
-//         console.log(error)
-//         next(error)
-//     }
-// };
-
 const saveProductController = async (req, res, next) => {
     try {
         let img = [];

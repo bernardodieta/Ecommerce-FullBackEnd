@@ -15,10 +15,15 @@ export default class UsersRepository {
         return this.dao.userById(_id, logger)
     }
 
-    userByEmail = async (email, logger,next) => {
-        return this.dao.userByEmail(email, logger,next)
+    userByEmail = async (email, logger, next) => {
+        return this.dao.userByEmail(email, logger, next)
     }
+
     updateInfo = async (userId, userUpdate, logger) => {
+        return this.dao.updateInfo(userId, userUpdate, logger)
+    }
+
+    updateInfoDocuments = async (userId, userUpdate, logger) => {
         return this.dao.updateInfo(userId, userUpdate, logger)
     }
 }
