@@ -59,6 +59,26 @@ const CuserById = async (req, res, next) => {
         next(error);
     }
 };
+const userDocumentUpload = async (req, res, next) => {
+    try {
+        let documents = [];
+        const { _id } = req.user;
+        const { document_name } = req.body;
+
+        if (req.files && req.files.length > 0) {
+            documents = req.files.map(file => ({ document_name, path: file.path }));
+        }
+
+        const updateInfo = { documents };
+        console.log(updateInfo, 'updateInfo');
+
+        const user = await userService.updateInfo(_id, updateInfo, req.logger);
+        const userDto = new UserResponseDto(user);
+        response(res, 201, userDto, 'Usuario cambiado a Premium.');
+    } catch (error) {
+        next(error);
+    }
+}
 
 const userLoginController = async (req, res, next) => {
     try {
@@ -174,6 +194,21 @@ const resetPasswordToken = async (req, res, next) => {
     }
 };
 
+const updatePremiumUser = async (req, res, next) => {
+    try {
+        const { _id } = req.user;
+        const { userUpdate } = req.body;
+        if (userUpdate.documents) {
+            userUpdate.role = 'PREMIUM'
+        }
+        const user = await userService.updateInfo(_id, userUpdate, req.logger);
+        const userDto = new UserResponseDto(user)
+        response(res, 201, userDto, 'Usuario cambiado a Premium.');
+    } catch (error) {
+        next(error);
+    }
+}
+
 const transporter = nodemailer.createTransport({
     service: 'gmail',
     port: 587,
@@ -191,7 +226,8 @@ const TuningregisterUserController = catchedAsync(registerUserController)
 const TuningprofileEdit = catchedAsync(profileEdit)
 const TuningreqPasswordReset = catchedAsync(reqPasswordReset)
 const TuningresetPasswordToken = catchedAsync(resetPasswordToken)
-
+const TuninguserDocumentUpload = catchedAsync(userDocumentUpload)
+const TuningupdatePremiumUser = catchedAsync(updatePremiumUser)
 export {
     TuninguserListController as userListController,
     TuningprofileById as profileById,
@@ -201,6 +237,8 @@ export {
     TuningprofileEdit as profileEdit,
     TuningreqPasswordReset as reqPasswordReset,
     TuningresetPasswordToken as resetPasswordToken,
+    TuninguserDocumentUpload as userDocumentUpload,
+    TuningupdatePremiumUser as updatePremiumUser,
     verifyAuth,
     logOut
 }

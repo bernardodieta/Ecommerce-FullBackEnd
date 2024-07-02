@@ -32,7 +32,7 @@ const userSchema = new mongoose.Schema({
     },
     documents: [{
         document_name: String,
-        ruta: String
+        path: String
     }],
     favProducts: [
         {

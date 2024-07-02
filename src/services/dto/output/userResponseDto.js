@@ -8,6 +8,10 @@ export default class UserResponseDto {
         this.role = user.role;
         this.questions = user.questions;
         this.registrationDate = user.fecha_reg;
+        this.documents = user.documents.map(doc => ({
+            document_name: doc.document_name,
+            path: doc.path
+        }));
         if (user.favProducts) {
             this.favProducts = user.favProducts.map(product => ({
                 productId: product.productId,
