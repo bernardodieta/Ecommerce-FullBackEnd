@@ -61,12 +61,23 @@ const CuserById = async (req, res, next) => {
 };
 const userDocumentUpload = async (req, res, next) => {
     try {
-        let documents = [];
         const { _id } = req.user;
-        const { document_name } = req.body;
+        const { document_names } = req.body;
 
+        console.log('req.body:', req.body);
+        console.log('req.files:', req.files);
+        console.log('document_names:', document_names);
+
+        if (!Array.isArray(document_names) || document_names.length === 0) {
+            throw new Error('Document names are missing or not in correct format.');
+        }
+
+        let documents = [];
         if (req.files && req.files.length > 0) {
-            documents = req.files.map(file => ({ document_name, path: file.path }));
+            documents = req.files.map((file, index) => ({
+                document_name: document_names[index] || 'Unknown',
+                path: file.path
+            }));
         }
 
         const updateInfo = { documents };
@@ -74,11 +85,13 @@ const userDocumentUpload = async (req, res, next) => {
 
         const user = await userService.updateInfo(_id, updateInfo, req.logger);
         const userDto = new UserResponseDto(user);
-        response(res, 201, userDto, 'Usuario cambiado a Premium.');
+        response(res, 201, userDto, 'Usuario actualizado con nuevos documentos.');
     } catch (error) {
+        console.error(error);
         next(error);
     }
 }
+
 
 const userLoginController = async (req, res, next) => {
     try {

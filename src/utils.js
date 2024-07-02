@@ -63,11 +63,10 @@ export const authorization = (role) => {
   };
 };
 
+
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     let uploadPath = 'public/uploads/';
-    console.log('req.body.type:', req.body.type);
-
     if (file.mimetype.startsWith('image/')) {
       if (req.body.type === 'user') {
         uploadPath += 'users/';
@@ -77,11 +76,9 @@ const storage = multer.diskStorage({
     } else if (file.mimetype === 'application/pdf') {
       uploadPath += 'documents/';
     }
-
     cb(null, uploadPath);
   },
   filename: (req, file, cb) => {
-    console.log('Recibiendo archivo:', file.originalname);
     cb(null, `${Date.now()}-${file.originalname}`);
   }
 });
@@ -96,5 +93,4 @@ export const upload = multer({
     }
   }
 });
-
 export default __dirname;
