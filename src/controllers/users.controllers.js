@@ -210,12 +210,20 @@ const resetPasswordToken = async (req, res, next) => {
 const updatePremiumUser = async (req, res, next) => {
     try {
         const { _id } = req.user;
-        const { userUpdate } = req.body;
-        if (userUpdate.documents) {
-            userUpdate.role = 'PREMIUM'
+        const user = await userService.userById(_id, req.logger);
+        if (user.documents && user.documents.length >= 4) {
+            user.role = 'PREMIUM';
+        } else {
+            return res.status(400).json({
+                error: true,
+                message: 'El usuario debe tener al menos 4 documentos cargados para ser promovido a PREMIUM.'
+            });
         }
-        const user = await userService.updateInfo(_id, userUpdate, req.logger);
-        const userDto = new UserResponseDto(user)
+        const userUpda = {
+            role: 'PREMIUM'
+        }
+        const updatedUser = await userService.updateInfo(_id, userUpda, req.logger);
+        const userDto = new UserResponseDto(updatedUser);
         response(res, 201, userDto, 'Usuario cambiado a Premium.');
     } catch (error) {
         next(error);
