@@ -26,7 +26,7 @@ const server = express();
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 server.use(cors({
-    origin: ['http://localhost:3000','https://frontend-ecommerce-production.up.railway.app'],
+    origin: ['http://localhost:3000', 'https://frontend-ecommerce-production.up.railway.app'],
     credentials: true,
     optionsSuccessStatus: 200
 }))
