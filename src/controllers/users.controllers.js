@@ -11,17 +11,31 @@ import jwt from "jsonwebtoken";
 import UserResponseDto from '../services/dto/output/userResponseDto.js';
 import UserResponseLoginDto from '../services/dto/output/userResponseLoginDto.js';
 import UserCreateDto from '../services/dto/input/userCreateDto.js';
+import { authToken } from '../utils.js';
 
 
 const logOut = (req, res) => {
-    res.clearCookie('jwtCookieToken');
-    response(res, 200, 'Logout confirmado.')
-}
+    res.clearCookie('jwtCookieToken', {
+        httpOnly: true,
+        secure: true,
+        sameSite: 'None'
+    });
+    return res.status(200).json({ message: 'Logout successful' });
+};
+
 const verifyAuth = (req, res) => {
-    req.user
-        ? response(res, 200, { isAuthenticated: true, user: req.user })
-        : response(res, 200, { isAuthenticated: false })
-}
+    //console.log(req.user);
+    if (!req.user) {
+        res.json({
+            isAuthenticated: false,
+            user: req.user
+        });
+    }
+    res.json({
+        isAuthenticated: true,
+        user: req.user
+    });
+};
 
 const userListController = async (req, res, next) => {
     try {
@@ -49,11 +63,11 @@ const profileById = async (req, res, next) => {
 const CuserById = async (req, res, next) => {
     try {
         const { _id } = req.user;
-        console.log(_id);
+       // console.log(_id);
         const result = await userService.userById(_id);
-        console.log('pre dto', result);
+       // console.log('pre dto', result);
         const userDto = new UserResponseDto(result)
-        console.log('dto', userDto);
+       // console.log('dto', userDto);
         response(res, 200, userDto);
     } catch (error) {
         next(error);
@@ -64,9 +78,9 @@ const userDocumentUpload = async (req, res, next) => {
         const { _id } = req.user;
         const { document_names } = req.body;
 
-        console.log('req.body:', req.body);
-        console.log('req.files:', req.files);
-        console.log('document_names:', document_names);
+      //  console.log('req.body:', req.body);
+       // console.log('req.files:', req.files);
+       // console.log('document_names:', document_names);
 
         if (!Array.isArray(document_names) || document_names.length === 0) {
             throw new Error('Document names are missing or not in correct format.');
@@ -81,7 +95,7 @@ const userDocumentUpload = async (req, res, next) => {
         }
 
         const updateInfo = { documents };
-        console.log(updateInfo, 'updateInfo');
+       // console.log(updateInfo, 'updateInfo');
 
         const user = await userService.updateInfo(_id, updateInfo, req.logger);
         const userDto = new UserResponseDto(user);
@@ -118,7 +132,8 @@ const userLoginController = async (req, res, next) => {
             maxAge: 12000000,
             httpOnly: true,
             secure: true,
-            sameSite: 'None'
+            sameSite: 'none',
+            path: '/'
         });
         const userDto = new UserResponseLoginDto(user)
         response(res, 200, userDto, 'Login Success');

@@ -7,9 +7,9 @@ import { validateUserRegisterData } from '../services/middlewares/validateDataUs
 export class UsersExtRouter extends CustomRouter {
 
     init() {
-        this.get('/auth/verify', ['PUBLIC'], verifyAuth);
+        this.get('/auth/verify', ["PUBLIC"], verifyAuth);
 
-        this.post('/logout', ['PUBLIC'], logOut);    
+        this.post('/logout', ["PUBLIC"], logOut);    
 
         this.post('/login', ['PUBLIC'], userLoginController);
 

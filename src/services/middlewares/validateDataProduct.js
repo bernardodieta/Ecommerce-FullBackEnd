@@ -1,8 +1,8 @@
 import { ValidationError } from "../../utils/errors.js";
 
 export const validateEmptyProductRegister = (req, res, next) => {
-    const { title, description, stock, price, pcode, category } = req.body;
-    if (!title || !description || !stock || !price || !pcode || !category) {
+    const { title, description, stock, price, category } = req.body;
+    if (!title || !description || !stock || !price || !category) {
         throw new ValidationError("Faltan campos requeridos.");
     }
     next()

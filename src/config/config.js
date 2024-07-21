@@ -20,9 +20,11 @@ dotenv.config({
 
 export default {
     port: process.env.SERVER_PORT,
+    stripeSecretKey: process.env.STRIPE_APP_SECRET_KEY,
     mongoUrl: process.env.MONGO_URL,
     adminName: process.env.ADMIN_NAME,
     adminPasswor: process.env.ADMIN_PASSWORD,
     gmailAccount: process.env.GMAIL_ACCOUNT,
     gmailAppPassword: process.env.GMAIL_APP_PASSWD,
+
 }

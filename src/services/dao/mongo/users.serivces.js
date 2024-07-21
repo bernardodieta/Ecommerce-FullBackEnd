@@ -22,7 +22,7 @@ export default class UserServiceDao {
 
     userById = async (_id, logger) => {
         const result = await userModel.findById(_id).lean();
-        console.log('result', result);
+        //console.log('result', result);
         if (result === null) {
             let empty = []
             return empty;
@@ -35,7 +35,7 @@ export default class UserServiceDao {
     };
 
     updateInfo = async (userId, userUpdate, logger) => {
-        console.log(userUpdate,'service');
+        //console.log(userUpdate,'service');
         const options = { new: true };
         const result = await userModel.findByIdAndUpdate(userId, userUpdate, options);
 

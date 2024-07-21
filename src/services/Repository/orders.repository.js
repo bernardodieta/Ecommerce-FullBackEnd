@@ -7,6 +7,9 @@ export default class OrdersRepository {
         return this.dao.saveOrder(orderData, logger, next)
     }
 
+    getOrders = async (logger, next) => {
+        return this.dao.getOrders(logger, next)
+    }
     getOrdersByCustomerId = async (customerId, logger, next) => {
         return this.dao.getOrdersByCustomerId(customerId, logger, next)
     }
@@ -21,4 +24,9 @@ export default class OrdersRepository {
     updateOrderStatus = async (orderId, newStatus, logger) => {
         return this.dao.updateOrderStatus(orderId, newStatus, logger)
     }
+    
+    updateOrderAddress = async (orderId, address, logger) => {
+        return this.dao.updateOrderAddress(orderId, address, logger)
+    }
+    
 }

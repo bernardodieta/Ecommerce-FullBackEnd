@@ -4,10 +4,10 @@ import { response } from "../utils/response.js"
 import { catchedAsync } from "../utils/catchedAsync.js";
 
 
-const getOrderById = async (req, res, next) => {
+const getAllOrderByuserId = async (req, res, next) => {
     try {
-        const { _id } = req.user
-        const orders = await ordersService.getAllOrderByuserId(_id, req.logger)
+        const { userId } = req.params
+        const orders = await ordersService.getAllOrderByuserId(userId, req.logger)
         if (!orders) {
             req.logger.warning(`${req.method} en ${req.url} - Error: 'No se encontro una orden con ese ID.' - at ${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`)
             throw new NotFoundError('No se encontro una orden con ese ID.')
@@ -16,8 +16,23 @@ const getOrderById = async (req, res, next) => {
     } catch (error) {
         next(error)
     }
-
 }
+
+const getOrderByIdController = async (req, res, next) => {
+    const { id } = req.params
+    const result = await ordersService.getOrderById(id, req.logger)
+    response(res, 200, result)
+}
+
+const getAllOrder = async (req, res, next) => {
+    try {
+        const result = await ordersService.getOrders(req.logger)
+        response(res, 200, result)
+    } catch (error) {
+        next(error)
+    }
+}
+
 
 const confirmOrder = async (req, res, next) => {
     try {
@@ -52,11 +67,31 @@ const cancelOrder = async (req, res, next) => {
 
 }
 
-const TuninggetOrderById = catchedAsync(getOrderById)
+const updateAddressOrder = async (req, res, next) => {
+    const { id } = req.params
+    const { selectedAddress } = req.body
+    console.log(id);
+    console.log(selectedAddress);
+    const updateAddress = await ordersService.updateOrderAddress(id, selectedAddress, req.logger)
+    console.log('respuesta de updateaddress', updateAddress);
+    response(res, 200, selectedAddress)
+
+}
+
+
+
+const TuninggetAllOrderByuserId = catchedAsync(getAllOrderByuserId)
+const TuninggetAllOrder = catchedAsync(getAllOrder)
+const TuninggetOrderByIdController = catchedAsync(getOrderByIdController)
 const TuningconfirmOrder = catchedAsync(confirmOrder)
 const TuningcancelOrder = catchedAsync(cancelOrder)
+const TuningupdateAddressOrder = catchedAsync(updateAddressOrder)
+
 export {
-    TuninggetOrderById as getOrderById,
+    TuninggetAllOrderByuserId as getAllOrderByuserId,
+    TuninggetOrderByIdController as getOrderByIdController,
+    TuninggetAllOrder as getAllOrder,
     TuningconfirmOrder as confirmOrder,
     TuningcancelOrder as cancelOrder,
+    TuningupdateAddressOrder as updateAddressOrder,
 }

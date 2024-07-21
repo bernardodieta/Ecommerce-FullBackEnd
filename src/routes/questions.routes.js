@@ -1,5 +1,5 @@
 import CustomRouter from "./customs.routes.js";
-import { saveQuestionProduct, getAllUserQuestion, getQuestionForProductId,getQuestionbyProductIdAndUserId } from '../controllers/questionsProducts.controllers.js'
+import { saveQuestionProduct, getAllUserQuestion, getQuestionForProductId, getQuestionbyProductIdAndUserId } from '../controllers/questionsProducts.controllers.js'
 
 
 export class QuestionsExtRouter extends CustomRouter {
