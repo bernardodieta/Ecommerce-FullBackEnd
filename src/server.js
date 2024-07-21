@@ -26,7 +26,7 @@ const server = express();
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 server.use(cors({
-    origin: 'http://localhost:3000',
+    origin: ['http://localhost:3000','https://frontend-ecommerce-production.up.railway.app'],
     credentials: true,
     optionsSuccessStatus: 200
 }))
@@ -63,6 +63,8 @@ const addressRoutes = new AddressRoutes()
 const questionRouter = new QuestionsExtRouter()
 const paymentRoutes = new PaymentRoutes()
 
+
+//LO QUITE PORQUE ME DA PROBLEMAS CUANDO HACE DEPLOY EN RAILWAYS
 // if (cluster.isPrimary) {
 //     const numeroProcesadores = cpus().length
 //     for (let i = 0; i < numeroProcesadores; i++) {
