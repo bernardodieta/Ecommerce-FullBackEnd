@@ -77,7 +77,6 @@ export default class OrderServicesDao {
     }
     updateOrderAddress = async (orderId, address, logger) => {
         try {
-
             const updatedOrder = await orderModel.findByIdAndUpdate(
                 orderId,
                 { $set: { address: address } },

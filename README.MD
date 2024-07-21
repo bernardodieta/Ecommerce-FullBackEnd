@@ -13,11 +13,14 @@ Dentro del directorio raiz del proyecyo encuentra un archivo Postman.json dentro
     **Testing: Chai, Mocha, artillery y SuperTest** 
     **Envio de emails: NodeMailer**
     **Logger: Winston**
-    **Otras: moent, multer, nodemon**
+    **Otras: moment, multer, nodemon**
 
 ## Deploy:
 URL BASE BACKEND: https://ecommerce-fullbackend-production.up.railway.app
-URL BASE FRONTEND: 
+
+EL FRONTEND LO TENGO EN DESARROLLO AUN PERO SE PUEDEN PROBAR TODAS LAS FUNCIONALIDADES DEL BACKEND MENOS Cargar docuementos pdf del usuario(aun me falta hacer esa parte en el front), algunas paginas aun no tiene un estilo css lindo pero 
+por los tiempos preferi darle al backend para que quede funcionando. 
+URL BASE FRONTEND: https://frontend-ecommerce-production.up.railway.app
 
 ## Requerimientos obligatiorios VARIABLES DE ENTORNO
 SERVER_PORT={port}
