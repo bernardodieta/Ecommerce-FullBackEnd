@@ -15,6 +15,16 @@ Dentro del directorio raiz del proyecyo encuentra un archivo Postman.json dentro
     **Logger: Winston**
     **Otras: moent, multer, nodemon**
 
+## Deploy:
+URL BASE BACKEND: https://ecommerce-fullbackend-production.up.railway.app
+URL BASE FRONTEND: 
+
+## Requerimientos obligatiorios VARIABLES DE ENTORNO
+SERVER_PORT={port}
+MONGO_URL={URL MONGO SERVER}
+GMAIL_ACCOUNT={email}
+GMAIL_APP_PASSWD={key app gmail }
+STRIPE_APP_SECRET_KEY={STRIPE KEY BACKEND}
 
 ## Funcionalidades:
 
@@ -78,3 +88,9 @@ Dentro del directorio raiz del proyecyo encuentra un archivo Postman.json dentro
 2. Testing Unitario para las funcionalidades de usuarios
 3. Testing Unitarios para las funcionaliades de Productos
 4. Testing de integracion para registro y logeo de usuario
+
+
+### FUNCIONALIDADES DESHABILITADAS POR PROBLEMAS CON DEPLOY EN RAILWAY
+
+DOCKER
+CLUSTER PARA OCUPAR TODOS LOS PROCESADORES DEL SERVIDOR
