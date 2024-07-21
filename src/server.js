@@ -63,47 +63,47 @@ const addressRoutes = new AddressRoutes()
 const questionRouter = new QuestionsExtRouter()
 const paymentRoutes = new PaymentRoutes()
 
-if (cluster.isPrimary) {
-    const numeroProcesadores = cpus().length
-    for (let i = 0; i < numeroProcesadores; i++) {
-        cluster.fork();
+// if (cluster.isPrimary) {
+//     const numeroProcesadores = cpus().length
+//     for (let i = 0; i < numeroProcesadores; i++) {
+//         cluster.fork();
+//     }
+//     cluster.on('exit', (worker) => {
+//         console.log(`Worker ${worker.process.pid} died`);
+//         cluster.fork()
+//     })
+// } else {
+server.use(addLogger)
+server.use("/api/users", userExtRouter.getRouter())
+server.use('/api/products', productsExtRouter.getRouter())
+server.use('/api/cart', cartRouter.getRouter())
+server.use('/api/orders', orderRoutes.getRouter())
+server.use('/api/address', addressRoutes.getRouter())
+server.use('/api/questions', questionRouter.getRouter())
+server.use('/api/', paymentRoutes.getRouter())
+
+const specs = swaggerJSDoc(swaggerOptions);
+server.use('/apidocs', swaggerUIExpress.serve, swaggerUIExpress.setup(specs))
+
+
+server.use((err, req, res, next) => {
+    const { statusCode = 500, message, type } = err;
+    resError(res, statusCode, message, type || 'Error Interno del Servidor');
+});
+
+const PORT = process.env.PORT || 8080
+server.listen(PORT, () => {
+    console.log('Server en puerto:', PORT);
+})
+
+const mongoInstance = async () => {
+    try {
+        await MongoSingleton.getInstance()
+    } catch (error) {
+        req.logger.error(`${req.method} en ${req.url} - Error:'Error al Conectar con la base de datos.' ${error} - at ${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`)
+        throw new DatabaseError('Error al Conectar con la base de datos.')
     }
-    cluster.on('exit', (worker) => {
-        console.log(`Worker ${worker.process.pid} died`);
-        cluster.fork()
-    })
-} else {
-    server.use(addLogger)
-    server.use("/api/users", userExtRouter.getRouter())
-    server.use('/api/products', productsExtRouter.getRouter())
-    server.use('/api/cart', cartRouter.getRouter())
-    server.use('/api/orders', orderRoutes.getRouter())
-    server.use('/api/address', addressRoutes.getRouter())
-    server.use('/api/questions', questionRouter.getRouter())
-    server.use('/api/', paymentRoutes.getRouter())
+};
+mongoInstance();
 
-    const specs = swaggerJSDoc(swaggerOptions);
-    server.use('/apidocs', swaggerUIExpress.serve, swaggerUIExpress.setup(specs))
-
-
-    server.use((err, req, res, next) => {
-        const { statusCode = 500, message, type } = err;
-        resError(res, statusCode, message, type || 'Error Interno del Servidor');
-    });
-
-    const PORT = process.env.PORT || 8080
-    server.listen(PORT, () => {
-        console.log('Server en puerto:', PORT);
-    })
-
-    const mongoInstance = async () => {
-        try {
-            await MongoSingleton.getInstance()
-        } catch (error) {
-            req.logger.error(`${req.method} en ${req.url} - Error:'Error al Conectar con la base de datos.' ${error} - at ${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`)
-            throw new DatabaseError('Error al Conectar con la base de datos.')
-        }
-    };
-    mongoInstance();
-
-}
+// }
