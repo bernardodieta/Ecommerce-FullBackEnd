@@ -81,7 +81,7 @@ if (cluster.isPrimary) {
     server.use('/api/address', addressRoutes.getRouter())
     server.use('/api/questions', questionRouter.getRouter())
     server.use('/api/', paymentRoutes.getRouter())
-    
+
     const specs = swaggerJSDoc(swaggerOptions);
     server.use('/apidocs', swaggerUIExpress.serve, swaggerUIExpress.setup(specs))
 
@@ -91,9 +91,9 @@ if (cluster.isPrimary) {
         resError(res, statusCode, message, type || 'Error Interno del Servidor');
     });
 
-    const SERVER_PORT = config.port;
-    server.listen(SERVER_PORT, () => {
-        console.log('Server en puerto:', SERVER_PORT);
+    const PORT = process.env.PORT || 8080
+    server.listen(PORT, () => {
+        console.log('Server en puerto:', PORT);
     })
 
     const mongoInstance = async () => {
