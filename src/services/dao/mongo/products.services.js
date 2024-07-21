@@ -17,7 +17,7 @@ export default class ProductServicesDao {
 
     getProductByPcode = async (pcode, logger) => {
         const result = await productModel.findOne({ pcode });
-        console.log('result', result);
+       // console.log('result', result);
         return result;
     };
 

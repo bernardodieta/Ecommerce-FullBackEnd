@@ -33,7 +33,7 @@ const addressSchema = new mongoose.Schema({
         required: true
     },
     numint: {
-        type: String        
+        type: String
     }
 }, { timestamps: true });
 

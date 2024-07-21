@@ -20,12 +20,13 @@ import { DatabaseError } from './utils/errors.js';
 import cluster from 'cluster';
 import { cpus } from 'os';
 import { QuestionsExtRouter } from './routes/questions.routes.js';
+import { PaymentRoutes } from './routes/paymentExt.routes.js';
 
 const server = express();
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 server.use(cors({
-    origin: ['http://localhost:5173', 'http://127.0.0.1:5500', 'http://localhost:3000', "http://localhost:3001"],
+    origin: 'http://localhost:3000',
     credentials: true,
     optionsSuccessStatus: 200
 }))
@@ -41,7 +42,7 @@ const swaggerOptions = {
     apis: [
         "./src/docs/Products/products.yaml",
         "./src/docs/Users/users.yaml",
-        "./src/docs/cart/cart.yaml",        
+        "./src/docs/cart/cart.yaml",
     ]
     //apis: [`./src/docs/**/*.yaml`]
 }
@@ -60,6 +61,8 @@ const productsExtRouter = new ProductsExtRouter()
 const orderRoutes = new OrdersRoutes()
 const addressRoutes = new AddressRoutes()
 const questionRouter = new QuestionsExtRouter()
+const paymentRoutes = new PaymentRoutes()
+
 if (cluster.isPrimary) {
     const numeroProcesadores = cpus().length
     for (let i = 0; i < numeroProcesadores; i++) {
@@ -77,11 +80,12 @@ if (cluster.isPrimary) {
     server.use('/api/orders', orderRoutes.getRouter())
     server.use('/api/address', addressRoutes.getRouter())
     server.use('/api/questions', questionRouter.getRouter())
-
+    server.use('/api/', paymentRoutes.getRouter())
+    
     const specs = swaggerJSDoc(swaggerOptions);
     server.use('/apidocs', swaggerUIExpress.serve, swaggerUIExpress.setup(specs))
 
-    
+
     server.use((err, req, res, next) => {
         const { statusCode = 500, message, type } = err;
         resError(res, statusCode, message, type || 'Error Interno del Servidor');

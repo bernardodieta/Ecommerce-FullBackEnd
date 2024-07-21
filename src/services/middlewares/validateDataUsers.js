@@ -3,7 +3,7 @@ export const validateUserRegisterData = (req, res, next) => {
     const { first_name, last_name, age, email, password } = req.body;
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^+&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+    const passwordRegex = /^(?=.*[A-Z])(?=.*[!@#$%^+&*-])[A-Za-z\d!@#$%^&*]{8,}$/;
 
     if (!first_name || !last_name || !age || !email || !password) {
         return res.status(400).json({ error: "Todos los campos son requeridos." });
@@ -20,9 +20,9 @@ export const validateUserRegisterData = (req, res, next) => {
     if (!emailRegex.test(email)) {
         return res.status(400).json({ error: "Ingrese un email valido." });
     }
-    if (!passwordRegex.test(password)) {
-        return res.status(400).json({ error: "La contraseña debe contener 8 caracteres, una mayuscula y un caracter especial." });
-    }
+    // if (!passwordRegex.test(password)) {
+    //     return res.status(400).json({ error: "La contraseña debe contener 8 caracteres, una mayuscula y un caracter especial." });
+    // }
 
     next();
 };
