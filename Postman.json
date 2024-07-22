@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "f15e6f1f-1af8-4d92-973c-3380c6c8efae",
-		"name": "Entrega Clase 30",
+		"name": "Ecommerce-Full-Final",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "25729757"
 	},
@@ -274,6 +274,22 @@
 								"premium"
 							]
 						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "AuthVerify",
+					"request": {
+						"method": "GET",
+						"header": []
 					},
 					"response": []
 				}
@@ -691,6 +707,22 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "prePurchase",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
 				}
 			]
 		},
@@ -786,20 +818,36 @@
 						}
 					},
 					"response": []
-				}
-			]
-		},
-		{
-			"name": "Address",
-			"item": [
+				},
 				{
-					"name": "New Request",
+					"name": "getAllOrders",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/orders/orders",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"orders",
+								"orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateAddresOrder",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"addressData\": {\r\n        \"country\": \"Argentina\",\r\n        \"state\": \"Buenos Aires\",\r\n        \"city\": \"Pergamino \",\r\n        \"zipcode\": 2700,\r\n        \"address\": \"Gaucho Cruz\",\r\n        \"numExt\": 138\r\n    }\r\n}",
+							"raw": "{\r\n    \"address\": {        \r\n        \"country\": \"Argentina\",\r\n        \"state\": \"Buenos Aires\",\r\n        \"city\": \"Pergamino \",\r\n        \"zipcode\": 2700,\r\n        \"addressText\": \"Gaucho Cruz\",\r\n        \"numext\": 138\r\n      \r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -807,7 +855,42 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/address/save/662c27e92845f4e43b13b3ec",
+							"raw": "http://localhost:8080/api/orders/669ca1b90ec126ce8b1ff9ef",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"orders",
+								"669ca1b90ec126ce8b1ff9ef"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Address",
+			"item": [
+				{
+					"name": "SaveAddress",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"country\": \"Mexico\",\r\n    \"state\": \"Ciudad de Mexico\",\r\n    \"city\": \"CDMX \",\r\n    \"zipcode\": 2700,\r\n    \"addressText\": \"Rio Rin Cruz\",\r\n    \"numext\": 138\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/address/save",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -816,7 +899,44 @@
 							"path": [
 								"api",
 								"address",
-								"save",
+								"save"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Todas las direcciones del usuario",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateAddress",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"addressText\":\"modificada\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/address/662c27e92845f4e43b13b3ec",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"address",
 								"662c27e92845f4e43b13b3ec"
 							]
 						}
@@ -824,51 +944,21 @@
 					"response": []
 				},
 				{
-					"name": "New Request",
-					"request": {
-						"method": "GET",
-						"header": []
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "PruebaApiGEONAMES",
-			"item": [
-				{
-					"name": "New Request",
+					"name": "GetAddressByAddressId",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://api.geonames.org/postalCodeSearchJSON?postalcode=06500&maxRows=10&username=bdieta&country=MX",
+							"raw": "http://localhost:8080/api/address/6686e70dca94de916d881369",
 							"protocol": "http",
 							"host": [
-								"api",
-								"geonames",
-								"org"
+								"localhost"
 							],
+							"port": "8080",
 							"path": [
-								"postalCodeSearchJSON"
-							],
-							"query": [
-								{
-									"key": "postalcode",
-									"value": "06500"
-								},
-								{
-									"key": "maxRows",
-									"value": "10"
-								},
-								{
-									"key": "username",
-									"value": "bdieta"
-								},
-								{
-									"key": "country",
-									"value": "MX"
-								}
+								"api",
+								"address",
+								"6686e70dca94de916d881369"
 							]
 						}
 					},
@@ -930,6 +1020,43 @@
 					"request": {
 						"method": "GET",
 						"header": []
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Railway",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{  \r\n    \"email\":\"bernardodieta@gmail.com\",\r\n    \"password\":\"11098666\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://ecommerce-fullbackend-production.up.railway.app/api/users/login",
+							"protocol": "https",
+							"host": [
+								"ecommerce-fullbackend-production",
+								"up",
+								"railway",
+								"app"
+							],
+							"path": [
+								"api",
+								"users",
+								"login"
+							]
+						}
 					},
 					"response": []
 				}
