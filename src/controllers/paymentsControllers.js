@@ -7,7 +7,7 @@ import { purchase } from "../controllers/carts.controllers.js";
 export const paymentIntentControllers = async (req, res, next) => {
     try {
         const orderId = req.query.id
-        //console.log(req.query.id, 'req.query.id');
+        console.log(req.query.id, 'req.query.id');
         const getOrder = await ordersService.getOrderById(orderId)
         //console.log(getOrder, 'getOrder');
         // console.log('req user', req.user);

@@ -1,68 +1,88 @@
-import express from 'express'
-import config from './config/config.js';
+import express from "express";
+import config from "./config/config.js";
 import cookieParser from "cookie-parser";
 import passport from "passport";
-import swaggerJSDoc from 'swagger-jsdoc';
-import swaggerUIExpress from 'swagger-ui-express'
-import cors from 'cors'
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUIExpress from "swagger-ui-express";
+import cors from "cors";
 import { __dirname } from "../utilsdir.js";
 import { passportCall } from "./utils.js";
 import initializePassport from "./config/passport.config.js";
-import { UsersExtRouter } from './routes/usersExt.routes.js'
-import { ProductsExtRouter } from './routes/productsExt.routes.js'
-import { CartRouter } from './routes/cartsExt.routes.js';
-import { OrdersRoutes } from './routes/ordersExt.routes.js';
-import { AddressRoutes } from './routes/addressExt.routes.js';
-import MongoSingleton from './config/mongodb-singleton.js';
-import { resError } from './utils/resError.js';
-import { addLogger } from './config/CustomLogger.js'
-import { DatabaseError } from './utils/errors.js';
-import cluster from 'cluster';
-import { cpus } from 'os';
-import { QuestionsExtRouter } from './routes/questions.routes.js';
-import { PaymentRoutes } from './routes/paymentExt.routes.js';
-
+import { UsersExtRouter } from "./routes/usersExt.routes.js";
+import { ProductsExtRouter } from "./routes/productsExt.routes.js";
+import { CartRouter } from "./routes/cartsExt.routes.js";
+import { OrdersRoutes } from "./routes/ordersExt.routes.js";
+import { AddressRoutes } from "./routes/addressExt.routes.js";
+import { NotificationRouter } from "./routes/notificationExt.routes.js";
+import { CategoryRoutes } from "./routes/category.routes.js";
+import MongoSingleton from "./config/mongodb-singleton.js";
+import { resError } from "./utils/resError.js";
+import { addLogger } from "./config/CustomLogger.js";
+import { DatabaseError } from "./utils/errors.js";
+import cluster from "cluster";
+import { cpus } from "os";
+import { QuestionsExtRouter } from "./routes/questions.routes.js";
+import { PaymentRoutes } from "./routes/paymentExt.routes.js";
+import updateOffers from "./jobs/offerCronoJob.js";
+import GoogleRoutes from "./routes/authGoogleExt.routes.js";
 const server = express();
+server.use(cookieParser());
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
-server.use(cors({
-    origin: ['http://localhost:3000', 'https://frontend-ecommerce-production.up.railway.app'],
+server.use(
+  cors({
+    origin: [
+      "http://localhost:3000",
+      "https://frontend-ecommerce-production.up.railway.app",
+      "https://ecomerce.0es3cloud.com",
+      
+    ],
     credentials: true,
-    optionsSuccessStatus: 200
-}))
+    optionsSuccessStatus: 200,
+  })
+);
+
+server.use((req, res, next) => {
+  res.header(
+    "Access-Control-Allow-Origin",
+    "https://ecomerce.0es3cloud.com"
+  );
+  res.header("Access-Control-Allow-Credentials", "true");
+  next();
+});
+
 
 const swaggerOptions = {
-    definition: {
-        openapi: "3.0.1",
-        info: {
-            title: "Documentacion de API Ecommerce",
-            description: "Documentacion para uso de aplicacion de ecommerce."
-        }
+  definition: {
+    openapi: "3.0.1",
+    info: {
+      title: "Documentacion de API Ecommerce",
+      description: "Documentacion para uso de aplicacion de ecommerce.",
     },
-    apis: [
-        "./src/docs/Products/products.yaml",
-        "./src/docs/Users/users.yaml",
-        "./src/docs/cart/cart.yaml",
-    ]
-    //apis: [`./src/docs/**/*.yaml`]
-}
-
-server.use(cookieParser("CoderS3cr3tC0d3"));
+  },
+  apis: [
+    "./src/docs/Products/products.yaml",
+    "./src/docs/Users/users.yaml",
+    "./src/docs/cart/cart.yaml",
+  ],
+  //apis: [`./src/docs/**/*.yaml`]
+};
 
 initializePassport();
 server.use(passport.initialize());
 server.use(passportCall("jwt"));
 server.use(express.static(__dirname + "/"));
 
-
-const cartRouter = new CartRouter()
-const userExtRouter = new UsersExtRouter()
-const productsExtRouter = new ProductsExtRouter()
-const orderRoutes = new OrdersRoutes()
-const addressRoutes = new AddressRoutes()
-const questionRouter = new QuestionsExtRouter()
-const paymentRoutes = new PaymentRoutes()
-
+const categoryRoutes = new CategoryRoutes();
+const googleRoutes = new GoogleRoutes();
+const cartRouter = new CartRouter();
+const userExtRouter = new UsersExtRouter();
+const productsExtRouter = new ProductsExtRouter();
+const orderRoutes = new OrdersRoutes();
+const addressRoutes = new AddressRoutes();
+const questionRouter = new QuestionsExtRouter();
+const paymentRoutes = new PaymentRoutes();
+const notificationRoutes = new NotificationRouter();
 
 //LO QUITE PORQUE ME DA PROBLEMAS CUANDO HACE DEPLOY EN RAILWAYS
 // if (cluster.isPrimary) {
@@ -75,36 +95,43 @@ const paymentRoutes = new PaymentRoutes()
 //         cluster.fork()
 //     })
 // } else {
-server.use(addLogger)
-server.use("/api/users", userExtRouter.getRouter())
-server.use('/api/products', productsExtRouter.getRouter())
-server.use('/api/cart', cartRouter.getRouter())
-server.use('/api/orders', orderRoutes.getRouter())
-server.use('/api/address', addressRoutes.getRouter())
-server.use('/api/questions', questionRouter.getRouter())
-server.use('/api/', paymentRoutes.getRouter())
-
+server.use(addLogger);
+server.use("/api/notifications", notificationRoutes.getRouter());
+server.use("/api/users", userExtRouter.getRouter());
+server.use("/api/products", productsExtRouter.getRouter());
+server.use("/api/cart", cartRouter.getRouter());
+server.use("/api/orders", orderRoutes.getRouter());
+server.use("/api/address", addressRoutes.getRouter());
+server.use("/api/questions", questionRouter.getRouter());
+server.use("/api/", paymentRoutes.getRouter());
+server.use("/api/go/", googleRoutes.getRouter());
+server.use("/api/category", categoryRoutes.getRouter());
 const specs = swaggerJSDoc(swaggerOptions);
-server.use('/apidocs', swaggerUIExpress.serve, swaggerUIExpress.setup(specs))
-
+server.use("/apidocs", swaggerUIExpress.serve, swaggerUIExpress.setup(specs));
 
 server.use((err, req, res, next) => {
-    const { statusCode = 500, message, type } = err;
-    resError(res, statusCode, message, type || 'Error Interno del Servidor');
+  const { statusCode = 500, message, type } = err;
+  resError(res, statusCode, message, type || "Error Interno del Servidor");
 });
 
-const PORT = process.env.PORT || 8080
+updateOffers();
+
+const PORT = process.env.PORT || 8080;
 server.listen(PORT, () => {
-    console.log('Server en puerto:', PORT);
-})
+  console.log("Server en puerto:", PORT);
+});
 
 const mongoInstance = async () => {
-    try {
-        await MongoSingleton.getInstance()
-    } catch (error) {
-        req.logger.error(`${req.method} en ${req.url} - Error:'Error al Conectar con la base de datos.' ${error} - at ${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`)
-        throw new DatabaseError('Error al Conectar con la base de datos.')
-    }
+  try {
+    await MongoSingleton.getInstance();
+  } catch (error) {
+    req.logger.error(
+      `${req.method} en ${
+        req.url
+      } - Error:'Error al Conectar con la base de datos.' ${error} - at ${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`
+    );
+    throw new DatabaseError("Error al Conectar con la base de datos.");
+  }
 };
 mongoInstance();
 

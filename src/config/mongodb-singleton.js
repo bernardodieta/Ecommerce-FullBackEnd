@@ -21,9 +21,7 @@ export default class MongoSingleton {
         try {
             await mongoose.connect(
                 config.mongoUrl,
-                {
-                    useNewUrlParser: true,
-                    useUnifiedTopology: true,
+                {                  
                     w: 1,
                 }
             );

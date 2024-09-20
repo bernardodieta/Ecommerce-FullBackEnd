@@ -70,9 +70,9 @@ const remProductbuy = async (_id, productId, res, req, next) => {
 const getCartUser = async (req, res, next) => {
     try {
         const { _id } = req.user
-        console.log(_id);
+        
         const cart = await cartService.getCartByUserId(_id, req.logger);
-        console.log(cart);
+        
         if (!cart) {
             req.logger.warning(`${req.method} en ${req.url} - Error: "No se encontro un carrito para ese usuario" at ${new Date().toLocaleDateString()} - ${new Date().toLocaleTimeString()}`)
 
@@ -118,7 +118,7 @@ const purchase = async (orderId, req, res, next) => {
     const { addressId } = req.params
     const address = await addressService.getByIdAddress(addressId, req.logger)
     const order = await ordersService.getOrderById(orderId)
-    console.log('order dede GEtORDE', order);
+    //console.log('order dede GEtORDE', order);
     const { products, productssinStock, total } = order
     await updateStockAndRemoveFromCart(products, _id, res, req, next);
     const purchasedProductsToAdd = products.map(product => ({

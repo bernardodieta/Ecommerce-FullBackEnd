@@ -6,9 +6,9 @@ export default class ProductRepository {
         return this.dao.getAllProducts(filter, options, logger)
     }
 
-    getProductByPcode = async (pcode, logger) => {
-        return this.dao.getProductByPcode(pcode, logger)
-    }
+    // getProductByPcode = async (pcode, logger) => {
+    //     return this.dao.getProductByPcode(pcode, logger)
+    // }
 
     saveProduct = async (product, logger) => {
         return this.dao.saveProduct(product, logger)
