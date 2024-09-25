@@ -73,7 +73,7 @@ server.use(passportCall("jwt"));
 server.use(express.static(__dirname + "/"));
 
 const categoryRoutes = new CategoryRoutes();
-const googleRoutes = new GoogleRoutes();
+//const googleRoutes = new GoogleRoutes();
 const cartRouter = new CartRouter();
 const userExtRouter = new UsersExtRouter();
 const productsExtRouter = new ProductsExtRouter();
@@ -105,7 +105,7 @@ server.use("/api/address", addressRoutes.getRouter());
 server.use("/api/questions", questionRouter.getRouter());
 server.use("/api/", paymentRoutes.getRouter());
 server.use("/api/emails", emailsRoutes.getRouter());
-server.use("/api/go/", googleRoutes.getRouter());
+//server.use("/api/go/", googleRoutes.getRouter());
 server.use("/api/category", categoryRoutes.getRouter());
 const specs = swaggerJSDoc(swaggerOptions);
 server.use("/apidocs", swaggerUIExpress.serve, swaggerUIExpress.setup(specs));

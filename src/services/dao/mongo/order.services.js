@@ -6,7 +6,7 @@ export default class OrderServicesDao {
   constructor() {}
   getOrders = async (next) => {
     try {
-      const orders = await orderModel.find().populate("products.product");;
+      const orders = await orderModel.find().populate("products.product");
       console.log(orders);
 
       return orders;

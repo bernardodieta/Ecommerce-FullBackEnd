@@ -16,17 +16,17 @@ env:
   GOOGLE_CLIENT_SECRET: ${{ GOOGLE_CLIENT_SECRET }}
   GOOGLE_CLIENT_ID: ${{ GOOGLE_CLIENT_ID }}
 jobs:
-# Make sure the job runs on an ARM64 self-hosted runner (e.g. Raspberry Pi)
+  # Make sure the job runs on an ARM64 self-hosted runner (e.g. Raspberry Pi)
   build-test-store:
     runs-on: [self-hosted, linux, X64]
-#    runs-on: [self-hosted, linux, ARM64]
+    #    runs-on: [self-hosted, linux, ARM64]
 
     steps:
       - uses: actions/checkout@v4
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20.x'
+          node-version: "20.x"
       - run: npm ci
       - run: npm start --if-present
       - run: npm test

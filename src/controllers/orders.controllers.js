@@ -7,12 +7,9 @@ import mongoose from "mongoose";
 const getAllOrderByuserId = async (req, res, next) => {
   try {
     const { userId } = req.params;
-
-    // Verifica si el userId es un ObjectId válido
     if (!mongoose.Types.ObjectId.isValid(userId)) {
       throw new NotFoundError("ID de usuario no válido.");
     }
-
     const orders = await ordersService.getAllOrderByuserId(userId, req.logger);
     if (!orders) {
       req.logger.warning(
@@ -94,14 +91,13 @@ const cancelOrder = async (req, res, next) => {
 const updateAddressOrder = async (req, res, next) => {
   const { id } = req.params;
   const { selectedAddress } = req.body;
-  // console.log(id);
-  // console.log(selectedAddress);
+
   const updateAddress = await ordersService.updateOrderAddress(
     id,
     selectedAddress,
     req.logger
   );
-  // console.log("respuesta de updateaddress", updateAddress);
+
   response(res, 200, selectedAddress);
 };
 
@@ -110,7 +106,6 @@ const updateDeliveryStatus = async (req, res, next) => {
     const { orderId } = req.params;
     const { newStatus } = req.body;
 
-    // Verificar si el orderId es válido
     if (!mongoose.Types.ObjectId.isValid(orderId)) {
       throw new NotFoundError("ID de la orden no válido.");
     }
@@ -139,7 +134,7 @@ const updateDeliveryStatus = async (req, res, next) => {
   }
 };
 
-// Controlador para eliminar una orden
+
 const deleteOrder = async (req, res, next) => {
   try {
     const { orderId } = req.params;
