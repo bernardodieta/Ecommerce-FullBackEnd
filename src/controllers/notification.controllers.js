@@ -7,7 +7,7 @@ export const getAllNotiByUserId = async (req, res) => {
     console.log("me llego", userId);
 
     if (!userId) {
-      console.log("No hay un usuario con ese id");
+      console.log("No hay un usuario con ese id3");
     }
     const getNoti = await notificationService.getNotiById(userId);
     response(res, 200, getNoti);
