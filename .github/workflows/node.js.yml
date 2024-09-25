@@ -21,16 +21,16 @@ jobs:
 
       # Instalar dependencias
       - run: npm ci
-
-      # Crear los archivos .env con los secrets
+      
+      # Crear los archivos .env y agregar los secrets
       - run: |
           touch .env.development
           echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> .env.development
-         
+          echo "API_KEY=${{ secrets.API_KEY }}" >> .env.development
 
           touch .env.production
           echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> .env.production
-       
+          echo "API_KEY=${{ secrets.API_KEY }}" >> .env.production
 
           # Mostrar los archivos para verificar que se crearon correctamente
           echo "Archivo .env.development:"
@@ -38,7 +38,7 @@ jobs:
           echo "Archivo .env.production:"
           cat .env.production
 
-      # Configurar el entorno y ejecutar la app
+      # Establecer el entorno y ejecutar la app
       - run: |
-          export NODE_ENV=development
+          export NODE_ENV=development  # Cambia a "production" si estás en producción
           npm start
