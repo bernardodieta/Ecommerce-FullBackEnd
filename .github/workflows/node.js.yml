@@ -1,6 +1,5 @@
 name: ElectroDev
 
-# Build on push to the main branch or pull request (for automated PR testing)
 on:
   push:
     branches:
@@ -8,18 +7,18 @@ on:
   pull_request:
     branches:
       - ElectroDev
+
 env:
-  MONGO_URL: ${{ MONGO_URL }}
-  GMAIL_ACCOUNT: ${{ GMAIL_ACCOUNT }}
-  GMAIL_APP_PASSWD: ${{ GMAIL_APP_PASSWD }}
-  STRIPE_APP_SECRET_KEY: ${{ STRIPE_APP_SECRET_KEY }}
-  GOOGLE_CLIENT_SECRET: ${{ GOOGLE_CLIENT_SECRET }}
-  GOOGLE_CLIENT_ID: ${{ GOOGLE_CLIENT_ID }}
+  MONGO_URL: ${{ secrets.MONGO_URL }}
+  GMAIL_ACCOUNT: ${{ secrets.GMAIL_ACCOUNT }}
+  GMAIL_APP_PASSWD: ${{ secrets.GMAIL_APP_PASSWD }}
+  STRIPE_APP_SECRET_KEY: ${{ secrets.STRIPE_APP_SECRET_KEY }}
+  GOOGLE_CLIENT_SECRET: ${{ secrets.GOOGLE_CLIENT_SECRET }}
+  GOOGLE_CLIENT_ID: ${{ secrets.GOOGLE_CLIENT_ID }}
+
 jobs:
-  # Make sure the job runs on an ARM64 self-hosted runner (e.g. Raspberry Pi)
   build-test-store:
     runs-on: [self-hosted, linux, X64]
-    #    runs-on: [self-hosted, linux, ARM64]
 
     steps:
       - uses: actions/checkout@v4
