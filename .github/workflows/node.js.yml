@@ -19,26 +19,32 @@ jobs:
         with:
           node-version: "20.x"
 
-      # Instalar dependencias
       - run: npm ci
-      
-      # Crear los archivos .env y agregar los secrets
+
+      # Escribir las variables en el archivo .env.development
+      - name: Crear archivo .env.development
+        run: |
+          echo "MONGO_URL=${{ secrets.MONGO_URL }}" >> .env.development
+          echo "STRIPE_APP_SECRET_KEY=${{ secrets.STRIPE_APP_SECRET_KEY }}" >> .env.development
+          echo "ADMIN_NAME=${{ secrets.ADMIN_NAME }}" >> .env.development
+          echo "ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }}" >> .env.development
+          echo "GMAIL_ACCOUNT=${{ secrets.GMAIL_ACCOUNT }}" >> .env.development
+          echo "GMAIL_APP_PASSWD=${{ secrets.GMAIL_APP_PASSWD }}" >> .env.development
+          echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> .env.development
+          echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> .env.development
+
+      # Escribir las variables en el archivo .env.production
+      - name: Crear archivo .env.production
+        run: |
+          echo "MONGO_URL=${{ secrets.MONGO_URL }}" >> .env.production
+          echo "STRIPE_APP_SECRET_KEY=${{ secrets.STRIPE_APP_SECRET_KEY }}" >> .env.production
+          echo "ADMIN_NAME=${{ secrets.ADMIN_NAME }}" >> .env.production
+          echo "ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }}" >> .env.production
+          echo "GMAIL_ACCOUNT=${{ secrets.GMAIL_ACCOUNT }}" >> .env.production
+          echo "GMAIL_APP_PASSWD=${{ secrets.GMAIL_APP_PASSWD }}" >> .env.production
+          echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> .env.production
+          echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> .env.production
+
       - run: |
-          touch .env.development
-          echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> .env.development
-          echo "API_KEY=${{ secrets.API_KEY }}" >> .env.development
-
-          touch .env.production
-          echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> .env.production
-          echo "API_KEY=${{ secrets.API_KEY }}" >> .env.production
-
-          # Mostrar los archivos para verificar que se crearon correctamente
-          echo "Archivo .env.development:"
-          cat .env.development
-          echo "Archivo .env.production:"
-          cat .env.production
-
-      # Establecer el entorno y ejecutar la app
-      - run: |
-          export NODE_ENV=development  # Cambia a "production" si estás en producción
+          export NODE_ENV=development # Cambiar a production si se necesita
           npm start
