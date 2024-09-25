@@ -44,4 +44,4 @@ jobs:
           echo "STRIPE_APP_SECRET_KEY=$STRIPE_APP_SECRET_KEY" >> .env
           echo "GOOGLE_CLIENT_SECRET=$GOOGLE_CLIENT_SECRET" >> .env
           echo "GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID" >> .env         
-          npm run build
+          npm start
