@@ -51,8 +51,7 @@ export default class AddressServicesDao {
 
   updateAddress = async (addresId, addressUpdate, logger) => {
     const options = { new: true };
-    //console.log(addresId);
-    // console.log(addressUpdate);
+
     if (!mongoose.Types.ObjectId.isValid(addresId)) {
       logger.error(`Invalid address ID: ${addresId}`);
       throw new DatabaseError("Invalid address ID.");

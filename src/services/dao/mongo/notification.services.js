@@ -17,6 +17,8 @@ export default class NotificationService {
   };
 
   createNoti = async (notification) => {
+    console.log("notification", notification);
+    
     try {
       const result = await notificationModel.create(notification);
     } catch (error) {

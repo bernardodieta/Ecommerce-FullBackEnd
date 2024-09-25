@@ -14,6 +14,7 @@ import { CartRouter } from "./routes/cartsExt.routes.js";
 import { OrdersRoutes } from "./routes/ordersExt.routes.js";
 import { AddressRoutes } from "./routes/addressExt.routes.js";
 import { NotificationRouter } from "./routes/notificationExt.routes.js";
+import { EmailsRoutes } from "./routes/emailExt.routes.js";
 import { CategoryRoutes } from "./routes/category.routes.js";
 import MongoSingleton from "./config/mongodb-singleton.js";
 import { resError } from "./utils/resError.js";
@@ -35,22 +36,20 @@ server.use(
       "http://localhost:3000",
       "https://frontend-ecommerce-production.up.railway.app",
       "https://ecomerce.0es3cloud.com",
-      
     ],
     credentials: true,
     optionsSuccessStatus: 200,
   })
 );
 
-server.use((req, res, next) => {
-  res.header(
-    "Access-Control-Allow-Origin",
-    "https://ecomerce.0es3cloud.com"
-  );
-  res.header("Access-Control-Allow-Credentials", "true");
-  next();
-});
-
+// server.use((req, res, next) => {
+//   res.header(
+//     "Access-Control-Allow-Origin",
+//     "https://ecomerce.0es3cloud.com"
+//   );
+//   res.header("Access-Control-Allow-Credentials", "true");
+//   next();
+// });
 
 const swaggerOptions = {
   definition: {
@@ -82,6 +81,7 @@ const orderRoutes = new OrdersRoutes();
 const addressRoutes = new AddressRoutes();
 const questionRouter = new QuestionsExtRouter();
 const paymentRoutes = new PaymentRoutes();
+const emailsRoutes = new EmailsRoutes();
 const notificationRoutes = new NotificationRouter();
 
 //LO QUITE PORQUE ME DA PROBLEMAS CUANDO HACE DEPLOY EN RAILWAYS
@@ -104,6 +104,7 @@ server.use("/api/orders", orderRoutes.getRouter());
 server.use("/api/address", addressRoutes.getRouter());
 server.use("/api/questions", questionRouter.getRouter());
 server.use("/api/", paymentRoutes.getRouter());
+server.use("/api/emails", emailsRoutes.getRouter());
 server.use("/api/go/", googleRoutes.getRouter());
 server.use("/api/category", categoryRoutes.getRouter());
 const specs = swaggerJSDoc(swaggerOptions);

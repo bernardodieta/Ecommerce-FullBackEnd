@@ -1,0 +1,26 @@
+name: ElectroDev
+
+# Build on push to the main branch or pull request (for automated PR testing)
+on:
+  push:
+    branches:
+      - ElectroDev
+  pull_request:
+    branches:
+      - ElectroDev
+
+jobs:
+# Make sure the job runs on an ARM64 self-hosted runner (e.g. Raspberry Pi)
+  build-test-store:
+    runs-on: [self-hosted, linux, X64]
+#    runs-on: [self-hosted, linux, ARM64]
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      - run: npm ci
+      - run: npm start --if-present
+      - run: npm test
