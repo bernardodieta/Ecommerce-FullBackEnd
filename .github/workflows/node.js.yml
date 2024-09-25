@@ -36,4 +36,12 @@ jobs:
           MONGO_URL: ${{ secrets.MONGO_URL }}
 
       - run: npm ci
-      - run: npm start --if-present
+      - run: |
+          touch .env
+          echo "MONGO_URL=$MONGO_URL" >> .env
+          echo "GMAIL_ACCOUNT=$GMAIL_ACCOUNT" >> .env
+          echo "GMAIL_APP_PASSWD=$GMAIL_APP_PASSWD" >> .env
+          echo "STRIPE_APP_SECRET_KEY=$STRIPE_APP_SECRET_KEY" >> .env
+          echo "GOOGLE_CLIENT_SECRET=$GOOGLE_CLIENT_SECRET" >> .env
+          echo "GOOGLE_CLIENT_ID=$GOOGLE_CLIENT_ID" >> .env         
+          npm run build
