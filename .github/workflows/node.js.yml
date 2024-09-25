@@ -23,6 +23,6 @@ jobs:
       - run: npm ci
       - run: |
           touch .env
-          echo "${{ secrets.MONGO_URL }}" .env.development    
+          echo "${{ secrets.MONGO_URL }}" .env 
           npm start
         
