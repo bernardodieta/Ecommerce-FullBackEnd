@@ -29,3 +29,4 @@ export default {
     googleCLientSecret: process.env.GOOGLE_CLIENT_SECRET,
     googleCLientId: process.env.GOOGLE_CLIENT_ID
 }
+//asd
