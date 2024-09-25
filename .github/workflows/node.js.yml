@@ -18,11 +18,27 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20.x"
-  
 
+      # Instalar dependencias
       - run: npm ci
+
+      # Crear los archivos .env con los secrets
       - run: |
-          touch .env
-          echo "${{ secrets.MONGO_URL }}" .env 
+          touch .env.development
+          echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> .env.development
+         
+
+          touch .env.production
+          echo "MONGO_URI=${{ secrets.MONGO_URI }}" >> .env.production
+       
+
+          # Mostrar los archivos para verificar que se crearon correctamente
+          echo "Archivo .env.development:"
+          cat .env.development
+          echo "Archivo .env.production:"
+          cat .env.production
+
+      # Configurar el entorno y ejecutar la app
+      - run: |
+          export NODE_ENV=development
           npm start
-        
