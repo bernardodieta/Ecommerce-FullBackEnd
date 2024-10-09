@@ -17,11 +17,14 @@ import {
   valorationAdd,
   updateProductOffer,
   createProductOffer,
+  getBulkProducts,
 } from "../controllers/products.controllers.js";
 import { upload } from "../utils.js";
 
 export class ProductsExtRouter extends CustomRouter {
   init() {
+    this.post("/bulk-products", ["PUBLIC"], getBulkProducts); // Ruta para obtener múltiples productos
+    
     this.get("/", ["PUBLIC"], getListProducts);
 
     this.post(

@@ -6,7 +6,6 @@ export default class UsersRepository {
     userList = async (logger) => {
         return this.dao.userList(logger)
     }
-
     userSave = async (user, logger) => {
         return this.dao.userSave(user, logger)
     }
@@ -25,5 +24,9 @@ export default class UsersRepository {
 
     updateInfoDocuments = async (userId, userUpdate, logger) => {
         return this.dao.updateInfo(userId, userUpdate, logger)
+    }
+
+    getAlluserList = async (logger) => {
+        return this.dao.getAlluserList(logger)
     }
 }

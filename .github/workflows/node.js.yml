@@ -18,12 +18,33 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: "20.x"
-  
 
       - run: npm ci
+
+      # Escribir las variables en el archivo .env.development
+      - name: Crear archivo .env.development
+        run: |
+          echo "MONGO_URL=${{ secrets.MONGO_URL }}" >> .env.development
+          echo "STRIPE_APP_SECRET_KEY=${{ secrets.STRIPE_APP_SECRET_KEY }}" >> .env.development
+          echo "ADMIN_NAME=${{ secrets.ADMIN_NAME }}" >> .env.development
+          echo "ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }}" >> .env.development
+          echo "GMAIL_ACCOUNT=${{ secrets.GMAIL_ACCOUNT }}" >> .env.development
+          echo "GMAIL_APP_PASSWD=${{ secrets.GMAIL_APP_PASSWD }}" >> .env.development
+          echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> .env.development
+          echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> .env.development
+
+      # Escribir las variables en el archivo .env.production
+      - name: Crear archivo .env.production
+        run: |
+          echo "MONGO_URL=${{ secrets.MONGO_URL }}" >> .env.production
+          echo "STRIPE_APP_SECRET_KEY=${{ secrets.STRIPE_APP_SECRET_KEY }}" >> .env.production
+          echo "ADMIN_NAME=${{ secrets.ADMIN_NAME }}" >> .env.production
+          echo "ADMIN_PASSWORD=${{ secrets.ADMIN_PASSWORD }}" >> .env.production
+          echo "GMAIL_ACCOUNT=${{ secrets.GMAIL_ACCOUNT }}" >> .env.production
+          echo "GMAIL_APP_PASSWD=${{ secrets.GMAIL_APP_PASSWD }}" >> .env.production
+          echo "GOOGLE_CLIENT_SECRET=${{ secrets.GOOGLE_CLIENT_SECRET }}" >> .env.production
+          echo "GOOGLE_CLIENT_ID=${{ secrets.GOOGLE_CLIENT_ID }}" >> .env.production
+
       - run: |
-          touch .env
-          echo "${{ secrets.PROD_ENV_FILE }}" .env.development
-          echo "${{ secrets.PROD_ENV_FILE }}" .env.production
+          export NODE_ENV=development # Cambiar a production si se necesita
           npm start
-        

@@ -11,6 +11,26 @@ import {
 } from "../utils/errors.js";
 import { response } from "../utils/response.js";
 
+const getBulkProducts = async (req, res, next) => {
+  try {
+    const { productIds } = req.body; // Esperamos un array de IDs en el cuerpo de la solicitud
+    if (!Array.isArray(productIds) || productIds.length === 0) {
+      return res
+        .status(400)
+        .json({ message: "Debes proporcionar un array de IDs" });
+    }
+
+    const products = await productModel.find({ _id: { $in: productIds } });
+    if (products.length === 0) {
+      return response(res, 404, { message: "No se encontraron productos" });
+    }
+
+    return response(res, 200, products);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getListProducts = async (req, res, next) => {
   try {
     const {
@@ -344,7 +364,6 @@ const updateProductById = async (req, res, next) => {
       existingImages,
     } = req.body;
 
-
     const product = {
       brand,
       model,
@@ -377,8 +396,11 @@ const updateProductById = async (req, res, next) => {
 
     console.log("Product", product);
 
-    
-    const updatedProduct = await productService.updateProduct(productId, product, req.logger);
+    const updatedProduct = await productService.updateProduct(
+      productId,
+      product,
+      req.logger
+    );
 
     if (updatedProduct) {
       return res.status(200).json(updatedProduct);
@@ -389,7 +411,6 @@ const updateProductById = async (req, res, next) => {
     next(error);
   }
 };
-
 
 const deletProductById = async (req, res, next) => {
   try {
@@ -439,6 +460,7 @@ const valorationAdd = async (req, res, next) => {
   response(res, 201, result);
 };
 
+const TuninggetBulkProducts = catchedAsync(getBulkProducts);
 const TuningcreateProductOffer = catchedAsync(createProductOffer);
 const TuningvalorationAdd = catchedAsync(valorationAdd);
 const TuninggetListProducts = catchedAsync(getListProducts);
@@ -449,6 +471,7 @@ const TuningupdateProductById = catchedAsync(updateProductById);
 const TuningdeletProductById = catchedAsync(deletProductById);
 
 export {
+  TuninggetBulkProducts as getBulkProducts,
   TuningcreateProductOffer as createProductOffer,
   TuningvalorationAdd as valorationAdd,
   TuninggetListProducts as getListProducts,

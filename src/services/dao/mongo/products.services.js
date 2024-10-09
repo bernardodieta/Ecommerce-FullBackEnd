@@ -6,6 +6,10 @@ import mongoose from "mongoose";
 export default class ProductServicesDao {
   constructor() {}
 
+
+
+
+
   getAllProducts = async (filter, options, logger) => {
     const products = await productModel.paginate(filter, options);
     if (!products) {
@@ -17,11 +21,6 @@ export default class ProductServicesDao {
     return products;
   };
 
-  // getProductByPcode = async (pcode, logger) => {
-  //   const result = await productModel.findOne({ pcode });
-  //   // console.log('result', result);
-  //   return result;
-  // };
 
   saveProduct = async (product, logger) => {
     console.log("Desde Servicio", product);

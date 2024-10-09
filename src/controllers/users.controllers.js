@@ -28,6 +28,19 @@ const logOut = (req, res) => {
   return res.status(200).json({ message: "Logout successful" });
 };
 
+const getAllUser = async (req, res, next) => {
+  try {
+    const result = await userService.getAlluserList(req.logger);
+    if (!result || result.length === 0) {
+      throw new NotFoundError("No se encontraron usuarios para listar");
+    }
+    response(res, 200, result);  // Asegúrate de que el resultado se envíe correctamente
+  } catch (error) {
+    next(error);
+  }
+};
+
+
 const verifyAuth = async (req, res) => {
   // console.log("asd", await req.headers.cookie);
   // console.log("USer", await req.user);
@@ -289,6 +302,7 @@ const transporter = nodemailer.createTransport({
   },
 });
 
+const TuninggetAllUser = catchedAsync(getAllUser);
 const TuninguserListController = catchedAsync(userListController);
 const TuningprofileById = catchedAsync(profileById);
 const TuningCuserById = catchedAsync(CuserById);
@@ -300,7 +314,11 @@ const TuningresetPasswordToken = catchedAsync(resetPasswordToken);
 const TuninguserDocumentUpload = catchedAsync(userDocumentUpload);
 const TuningupdatePremiumUser = catchedAsync(updatePremiumUser);
 const TuninguserDataById = catchedAsync(userDataById);
+
+
+
 export {
+ 
   TuninguserListController as userListController,
   TuningprofileById as profileById,
   TuningCuserById as CuserById,
@@ -314,4 +332,5 @@ export {
   TuninguserDataById as userDataById,
   verifyAuth,
   logOut,
+  TuninggetAllUser as getAllUser
 };

@@ -11,7 +11,8 @@ import {
   verifyAuth,
   logOut,
   userDocumentUpload,
-  userDataById
+  userDataById,
+  getAllUser,
 } from "../controllers/users.controllers.js";
 
 import { upload } from "../utils.js";
@@ -19,6 +20,8 @@ import { validateUserRegisterData } from "../services/middlewares/validateDataUs
 
 export class UsersExtRouter extends CustomRouter {
   init() {
+    this.get("/asd/all", ["PUBLIC", "ADMIN"], getAllUser);
+
     this.get("/auth/verify", ["PUBLIC"], verifyAuth);
 
     this.post("/logout", ["PUBLIC"], logOut);
