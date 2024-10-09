@@ -47,4 +47,8 @@ jobs:
 
       - run: |
           export NODE_ENV=development # Cambiar a production si se necesita
+<<<<<<< HEAD
           npm start
+=======
+          npm start
+>>>>>>> 819400a1eb98176ad470ae003dcf14399cd58629
