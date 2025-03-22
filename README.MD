@@ -1,5 +1,5 @@
 
-# Proyecto Final Ecommerce-Backend
+# Ecommerce-Backend v1.2
 
 ## Recursos para probar APIS
 //Postman.json
